@@ -20,7 +20,7 @@
 Í stuttu máli snýst verkefnið um að læra að bera kennsl á góðar lausnir. 
 Ég hef einskorðað verkefnið við tilviksrannsókn á verkniðurröðun á vélum (JSP, 
 e. job-shop scheduling problem) 
-sem felst í því að þurfa að gera raðbundnar ákvarðanir um hvaða verkefni eigi 
+sem felst í því að þurfa að gera raðbundnar ákvarðanir um hvaða verk eigi 
 að vera afgreitt næst, þar sem þau eru að keppast um sömu aðföngin.
 Í raun má útvíkka aðferðafræðina til hvers kyns strjála bestun. 
 
@@ -46,15 +46,15 @@ hefur lokið núverandi aðgerð.
 Þar að auki getur sérhver vél aðeins meðhöndlað eitt verk í einu. 
 Viðbættar skorður sem eru oft teknar til greina eru sleppitími og útgáfutími, 
 en þeir eru ekki til skoðunar hér.
-Markfallið er að tímasetja öll verk þannig að lágmarka hámarks heildartíma (e. 
-makespan), $C_{\max}$. 
+Markfallið er að tímasetja öll verk þannig að lágmarka skal hámarks heildartíma 
+(e. makespan), $C_{\max}$. 
 
-\begin{figure}[p]\centering
+\begin{figure}\centering
     \includegraphics[width=0.8\textwidth]{figures/jssp_example.eps}
     \caption[Gantt rit af ókláraðri JSP stundaskrá]{Gantt rit af ókláraðri JSP 
     stundaskrá eftir 15 aðgerðir: heilir kassar tákna $\vchi$ og kassar með 
     brotalínu tákna $\mathcal{L}^{(16)}$. 
-    Núverandi heildartími, $C_{\max}$, er gefinn upp sem brotalína.}
+    Núverandi heildartími, $C_{\max}$, er gefinn upp sem punktalína.}
     \label{fig:jssp:example}
 \end{figure}
 
@@ -63,65 +63,80 @@ umbætunaralgrím.
 Umbætunaralgrím byrja á fulbúinni lausn og reynir að finna sambærilegar, en 
 betri lausnir. 
 Uppbyggingaralgrím byrja með tóma lausn og bæta við einu verki í einu þar til 
-lausnin er fullbúin, og er það sem aðferðafræðin gengur út frá. 
-Í þessu tilfelli þá eru yfirleitt röðunarreglur 
-
-The work presented here will focus on construction heuristics, although the 
-techniques developed could be adapted to improvement heuristics also.  In 
-scheduling a construction heuristic is typically implemented as a priority 
-dispatching rule.  These are simple rules that basically determine which 
-uncompleted job should be dispatched next.  However, knowing which job to 
-dispatch is not sufficient, one must also know where to place it.  In order to 
-build tight schedules it would be sensible to place the jobs, once they become 
-available, such that the machine idle time is minimal. There may also be a 
-number of different options for such a placement.
-\Cref{fig:jssp:example} illustrates the dispatching process with an example of 
-a temporal partial schedule for six jobs scheduled on five-machines.  The 
-numbers in the boxes represent the job's identification $j$.  The width of the 
-box illustrates the processing times for a given job for a particular machine 
-$M_a$ (on the vertical axis).  The dashed boxes represent the resulting partial 
-schedule for when a particular job is scheduled next.  Moreover, the current
-$C_{\max}$ is denoted with a dotted horizontal line.  In the figure one observes
-that $J_2$, to be scheduled on $M_3$, could be placed immediately in a slot 
-between $J_3$ and $J_4$, or after $J_4$.  If $J_6$ had been scheduled prior a 
-slot would have been created between it and $J_4$, thus creating a third 
-alternative where $J_2$ is placed after $J_6$.  The construction heuristic must 
-therefore decide where to place the job, and this may be independent of the 
-dispatching rule applied.  Different placement strategies could be considered, 
-for example placing a job in smallest feasible slot.  In our preliminary
-experiments we have discovered that such a placement could rule out the 
-possibility of constructing solutions with an optimal makespan. This problem 
-did not occur when jobs were simply placed as early as feasibly possible.
-
-A \emph{sequence} will refer to the sequential ordering of the dispatches of 
-tasks to machines, i.e., $(j,a)$; the collective set of allocated tasks to 
-machines, which is interpreted by its sequence, is referred to as a 
-\emph{schedule}; a \emph{scheduling policy} will pertain to the manner in which 
-the sequence is determined.  As shown in our example given in 
-\Cref{fig:jssp:example}, there are 15 operations already scheduled. The 
-sequence used to create the schedule was,
+lausnin er fullbúin, og er það sú nálgun sem aðferðafræðin mín gengur út frá. 
+Í þessu tilfelli þá eru yfirleitt röðunarreglur (DR, e. dispatching 
+rules) sem ákvarða hvaða ókláraða verk verður valið næst. Það er ekki nóg að 
+vita hvaða verkefni ætti að vera valið næst, 
+heldur þarf líka að athuga hvar væri best að staðsetja það. 
+Þar sem við viljum búa til samþjappaðar tímaáætlanir  þá setjum við verkið af 
+stað um leið og það er laust. 
+Skoðnum nú Gantt ritið á mynd \ref{fig:jssp:example} sem sýnir dæmi um 
+$6\times5$ JSP þar sem verknúmerið er gefið inn í kassa og er breidd hans 
+vinnslutími verksins, 
+vélarnar eru á lóðrétta ásinum og lárétti ásinn segir til um tíma 
+og er núverandi $C_{\max}$ gefið sem punktalína. 
+Búið er að setja af stað 15 aðgerðir, nefnilega, 
 \begin{eqnarray}
-\vchi=\left(J_3,J_3,J_3,J_3,J_4,J_4,J_5,J_1,J_1,J_2,J_4,J_6,J_4,J_5,J_3\right)
+\vchi=\left(J_3,J_3,J_3,J_3,J_4,J_4,J_5,J_1,J_1,J_2,J_4,J_6,J_4,J_5,J_3\right),
 \end{eqnarray}
-hence the current available jobs to be scheduled 
-$\mathcal{L}=\{J_1,J_2,J_4,J_5,J_6\}$, and will be referred to as our job-list, 
-describes the 5 potential jobs to be dispatched at step $k=16$ (note that $J_3$ 
-is completed).
+þar af leiðandi eru ókláruð verkin eftirfarandi 
+$\mathcal{L}=\{J_1,J_2,J_4,J_5,J_6\}$, sem lýsa þeim 5 mögulegu verkum sem geta 
+verið afgreidd á tímapunkti $k=16$ (athugið að verk $J_3$ er fullklárað) -- 
+þessi verk eru gefin upp með brotalínu og lýsa hvernig staðan gæti breyst. 
+Við sjáum að $J_2$ getur verið staðsett á $M_3$ annaðhvort á milli  $J_3$ 
+$J_4$, eða eftir $J_4$.  Ef $J_6$ hefði nú þegar verið afgreitt, þá myndi 
+myndast rauf á milli þess og $J_4$, þ.a.l. myndast þriðji möguleikinn, þ.e. 
+fyrir $J_2$ er sett eftir $J_6$. 
+Uppbyggingaralgrímið þarf því að ákveða hvert þessara möguleika ætti að vera 
+valið fyrir verkið og er það óháð röðunarreglunni sem er notuð. 
+Mismunandi staðsetningaraðferðir geta verið skoðaðar, t.a.m. að velja þau rauf 
+sem er minnsta (en nægjanlega stór) fyrir verkið. En grunnrannsóknir sýndu að 
+slík nálgun gat í raun útilokað bestu lausn m.t.t. lágmarks heildartíma. 
+En slík staða kom ekki upp ef við afgreiðum verkin um leið og þau berast. 
+
+\section{Röðunarreglur}
+Einfaldar röðunarreglur (SDR, e. single-based priority dispatching rule) 
+(SDR), er fall af sérkennum verka/véla tímaáætlunarinnar. Sérkennin geta verið 
+fastar eða breyst í takti við ferlið. Til dæmis getur forgangurinn byggst á 
+eiginleikum vinnslutíma verkanna, 
+\begin{description}
+    \item[Minnsti vinnlutími (SPT, e. shortest immediate processing time)] 
+    \hfill \\ gráðug aðferð sem klárar verk með minnsta vinnslutíma fyrst, 
+    \item[Stærsti vinnslutími (LPT, e. longest immediate processing time)] 
+    \hfill \\ gráðug aðferð sem klárar verk með stærsta vinnslutíma fyrst, 
+    \item[Minnsta heildarvinna (LWR, e. least work remaining)] \hfill \\
+    þar sem ásetningurinn er að klára verk sem eru komin langt á veg í 
+    framvindu sinni, þ.e. að lágmarka verklistann $\mathcal{L}$,
+    \item[Stærsta heildarvinna (MWR, e. most work remaining)] \hfill \\
+    þar sem ásetningurinn er að flýta fyrir framvindu verka sem krefjast mikinn 
+    vinnslutíma, og gefur því af sér jafnari framvidnu fyrir öll verk, aftur á 
+    móti.
+\end{description}
+Þetta eru þær algengustu röðurnarreglur í starfi vegna einfaldleika þeirra og 
+skilvirkni, en ótal fleiri reglur koma líka til greina. Yfirlit yfir 100 
+sígildar röðunarreglur má finna í \citet{Panwalkar77}, en einnig er greinargóð 
+lýsing á SDR eftir \citet{Haupt89}. 
 
 
 
 
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/{stepwise.6x5.Track.casescenario}.pdf}
+    \caption{Mean best and worst case scenario over various trajectories.}
+    \label{diff:case:track:jrnd:6x5}
+\end{figure}
+
+\begin{figure}
+    \includegraphics[width=\textwidth]{figures/{stepwise.6x5.OPT.SDR}.pdf}
+    \caption{Probability of SDR being optimal}
+    \label{fig:diff:opt:SDR}
+\end{figure}
 
 
+          Problem Dimension    Q1    Q3
+          j.rnd.6x5   j.rnd       6x5 19.91 47.21
+          f.rnd.6x5   f.rnd       6x5 18.46 35.52
 
-
-
-
-
-
-
-\section{}
-\lipsum[1-7]
 
 \bibliographystyle{unsrtnat}
 \bibliography{../references}  
