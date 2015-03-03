@@ -62,7 +62,7 @@ Brjóstvitsaðferðir fyrir tímaáætlanir eru yfirleitt uppbyggingar- eða
 umbætunaralgrím.
 Umbætunaralgrím byrja á fulbúinni lausn og reynir að finna sambærilegar, en 
 betri lausnir. 
-Uppbyggingaralgrím byrja með tóma lausn og bæta við einu verki í einu þar til 
+Uppbyggingaralgrím byrja með tómri lausn og bæta við einu verki í einu þar til 
 lausnin er fullbúin, og er það sú nálgun sem aðferðafræðin mín gengur út frá. 
 Í þessu tilfelli þá eru yfirleitt röðunarreglur (DR, e. dispatching 
 rules) sem ákvarða hvaða ókláraða verk verður valið næst. Það er ekki nóg að 
@@ -79,15 +79,15 @@ Búið er að setja af stað 15 aðgerðir, nefnilega,
 \begin{eqnarray}
 \vchi=\left(J_3,J_3,J_3,J_3,J_4,J_4,J_5,J_1,J_1,J_2,J_4,J_6,J_4,J_5,J_3\right),
 \end{eqnarray}
-þar af leiðandi eru ókláruð verkin eftirfarandi 
+þar af leiðandi eru ókláruðu verkin eftirfarandi 
 $\mathcal{L}=\{J_1,J_2,J_4,J_5,J_6\}$, sem lýsa þeim 5 mögulegu verkum sem geta 
 verið afgreidd á tímapunkti $k=16$ (athugið að verk $J_3$ er fullklárað) -- 
 þessi verk eru gefin upp með brotalínu og lýsa hvernig staðan gæti breyst. 
-Við sjáum að $J_2$ getur verið staðsett á $M_3$ annaðhvort á milli  $J_3$ 
+Við sjáum að $J_2$ getur verið staðsett á $M_3$ annaðhvort á milli  $J_3$ og 
 $J_4$, eða eftir $J_4$.  Ef $J_6$ hefði nú þegar verið afgreitt, þá myndi 
 myndast rauf á milli þess og $J_4$, þ.a.l. myndast þriðji möguleikinn, þ.e. 
 fyrir $J_2$ er sett eftir $J_6$. 
-Uppbyggingaralgrímið þarf því að ákveða hvert þessara möguleika ætti að vera 
+Uppbyggingaralgrímið þarf því að ákveða hvert þessara raufa ætti að vera 
 valið fyrir verkið og er það óháð röðunarreglunni sem er notuð. 
 Mismunandi staðsetningaraðferðir geta verið skoðaðar, t.a.m. að velja þau rauf 
 sem er minnsta (en nægjanlega stór) fyrir verkið. En grunnrannsóknir sýndu að 
@@ -117,53 +117,78 @@ skilvirkni, en ótal fleiri reglur koma líka til greina. Yfirlit yfir 100
 sígildar röðunarreglur má finna í \citet{Panwalkar77}, en einnig er greinargóð 
 lýsing á SDR eftir \citet{Haupt89}. 
 
+\section{Tilraunir}
+Við skulum skoða nú tvær gagnadreifingar fyrir JSP, nefnilega með slembinni 
+uppröðun, kallað \texttt{j.rnd}, og einsleitri uppröðun, kallað \texttt{f.rnd}. 
+Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifinu á bilinu $[1,99]$.
+Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu, og vitum bestu lausn. 
+Þar sem vinnslutíminn er mismunandi þá munum við styðjast við að lágmarka 
+frávik frá bestu lausn með eftirfarandi hætti, 
+\begin{equation}
+\rho=\frac{C_{\max}^{\text{DR}}-C_{\max}^{opt}}{C_{\max}^{\text{opt}}}\cdot 
+100\%
+\end{equation}
+þar sem $C_{\max}^{\text{DR}}$ er fengið með DR og $C_{\max}^{\text{opt}}$ er 
+besta lausn. 
 
+Beitum nú þeim SDR sem við kynntum áðan, á gagnasettið okkar. Kassarit fyrir 
+$\rho$ er gefið upp í mynd \ref{fig:boxplot}. Við sjáum að það er greinilegur 
+munur á því hvaða SDR er beitt á gögnin, t.a.m. er MWR mjög hentug regla fyrir 
+\texttt{j.rnd} aftur á móti er það ekki tilvikið fyrir \texttt{f.rnd} þar sem 
+gagnstæð regla, LWR, kemur umtalsvert betur út. 
 
-
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/{stepwise.6x5.Track.casescenario}.pdf}
-    \caption{Mean best and worst case scenario over various trajectories.}
-    \label{diff:case:track:jrnd:6x5}
+\begin{figure}\centering
+    \includegraphics[width=0.8\textwidth]{figures/boxplot.pdf}
+    \caption{Kassarit fyrir SDR}
+    \label{fig:boxplot}
 \end{figure}
 
-\begin{figure}
-    \includegraphics[width=\textwidth]{figures/{stepwise.6x5.OPT.SDR}.pdf}
-    \caption{Probability of SDR being optimal}
+Í mörgum tilfellum þá er látið staðar numið við þessar niðurstöður og sú DR sem 
+kom best út er valin fyrir verkefnið. En það sem við viljum vita er hvað 
+aðgreinir þessar reglur? Af hverju er svona mikill munur á niðurstöðum? 
+Sérstaklega í ljósi þess að innblástur þeirra virðist ekki vera svo ólíkur, SPT 
+svipar til LWR og LPT til MWR. Einnig er SPT andstæða LPT og LWR fyrir MWR. Af 
+hverju er einsleit verkumröðun \texttt{f.rnd} að velja LWR fram yfir MWR og 
+öfugt? Einnig hvenær fer að greina á gæði lausnanna með þessum aðferðum?
+
+Ef við skoðum bestu lausnir fyrir verkefnin og athuga hvenær þær væru 
+jafngildar að beita SDR, líkt og mynd \ref{fig:diff:opt:SDR} sýnir, þá fyrir 
+\texttt{j.rnd} má sjá að oftar en ekki er LWR og LPT verri en að velja reglu að 
+handahófi (brotalína) sem útskýrir slakar niðurstöður þeirra. 
+Einnig má sjá að SPT sýnir hegðun sem er líklegri til að 
+hagstæðri en MWR -- en aðeins til að byrja með. Eftir það fer MWR að vera 
+líklegri til vinnings. En því miður er ekki hægt að beita SPT fyrst (segjum frá 
+skrefi 1-10) og láta svo MWR taka svo við, því þá erum við nú þegar búin að 
+stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af. 
+
+\begin{figure}\centering
+    \includegraphics[width=0.8\textwidth]{figures/{stepwise.6x5.OPT.SDR}.pdf}
+    \caption{Líkurnar að SDR sé hagstæðust, brotalínan lýsir að verk að 
+    handhófi sé hagstæðast.}
     \label{fig:diff:opt:SDR}
 \end{figure}
 
+Aftur á móti má sjá, hvernig eru reglurnar að breytast frá öðrum verkum sem 
+fall af tíma. Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið $\rho$ er 
+að breytast sem fall af ákvörðunarskrefi með því að fylgja ákveðinni SDR 
+(brotalína). Einnig er skoðað hvernig væru besta og versta frávik frá þeirri 
+sömu stöðu, þ.e. ef við fylgdum ekki reglunni. 
+Þá sést glögglega að MWR er stöðugri í að koma sér í betri stöðu en SPT, 
+jafnvel þótt bestu lausnirnar virtust fylgja SPT hegðun til að byrja með. 
 
-          Problem Dimension    Q1    Q3
-          j.rnd.6x5   j.rnd       6x5 19.91 47.21
-          f.rnd.6x5   f.rnd       6x5 18.46 35.52
+\begin{figure}\centering
+    \includegraphics[width=0.8\textwidth]{figures/{stepwise.6x5.Track.casescenario}.pdf}
+    \caption{Breyting frávik sem fall af áætlunarskrefi fyrir gefið SDR.}
+    \label{diff:case:track:6x5}
+\end{figure}
+
+
+
+%          Problem Dimension    Q1    Q3
+%          j.rnd.6x5   j.rnd       6x5 19.91 47.21
+%          f.rnd.6x5   f.rnd       6x5 18.46 35.52
 
 
 \bibliographystyle{unsrtnat}
 \bibliography{../references}  
 \end{document}
-
-
-
-„Ég skoða ólíkar lausnir við verkniðurröðun og hvernig einkennisþættir, t.d. 
-ónýttur tími á færibandi, breytast í gegnum framleiðsluferlið. Lausnir eru 
-bornar saman tvær og tvær og ákvarðað hvort önnur sé betri en hin. Síðan er 
-beitt reiknifræðilegum aðferðum til að yfirfæra þessa þekkingu á ný verkefni,“ 
-segir Helga.
-
-
-Hún segir áherslu sína í námi hafa færst frá hinu fræðilega til hins hagnýta og 
-hún hafi heillast af reiknigreind, en það er aðferð sem notuð er til að finna 
-tengsl á milli tveggja hluta sem menn koma ekki svo auðveldlega auga á. Til 
-þess eru stundum notaðar ofurtölvur. „Reiknigreind er nánast töfrum líkust. Með 
-því að rýna í sambærileg verkefni og nýta tölvutækni er hægt að öðlast alls 
-konar fróðleik, t.a.m. torræða þekkingu eða tilfinningu þeirra sem hafa 
-ígrundað árum saman verkefni sem eru sambærileg,“ segir Helga og nefnir sem 
-dæmi stundatöflur fyrir skóla.
-
-Helga segist líta svo á að sitt hlutverk sé að koma með sérfræðivitneskju inn í 
-hönnunina hjá framleiðslufyrirtækjum og láta svo tölvur sjá um mesta erfiðið. Í 
-því skyni er hún að hanna reiknirit en þau eru notuð í stærðfræði og 
-tölvunarfræði við lausn vandamála. „Reikniritið lærir að gera greinarmun á 
-„góðum“ og „slæmum“ lausnum. Því má segja að aðferðafræðin eigi erindi í 
-sérhverju verkefni sem felur að einhverju leyti í sér bestun, en sá listi er 
-ótæmandi,“ segir Helga að lokum.
