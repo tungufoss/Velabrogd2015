@@ -7,7 +7,7 @@
 \input{../shorthandCommon}
 
 %opening
-\title{Vélabrögð}
+\title{Vélabrögð} % 1000-2000 orð
 \author{Helga Ingimundardóttir}
 
 \begin{document}
@@ -26,13 +26,17 @@ að vera afgreitt næst, þar sem þau eru að keppast um sömu aðföngin.
 
 Hugmyndina að rannsókninni kviknaði þegar ég var að vinna í raunhæfu verkefni í 
 aðgerðagreiningu í grunnnámi mínu. Um var að ræða bestun á verkniðurröðun fyrir 
-Össur. Í eðli sínu er verkniðurröðun einfalt verkefni, og skipar stóran sess 
-hjá framleiðslufyrirtækjum en stærðargráðan á vandamálinu gerir það að verkum 
-að oft er erfitt að leysa verkefnið með nákvæmum aðferðum. 
+Össur. Í eðli sínu er verkniðurröðun tiltölulega einfalt verkefni, og skipar 
+stóran sess hjá framleiðslufyrirtækjum en stærðargráðan á vandamálinu gerir það 
+að verkum að oft er erfitt að leysa verkefnið með nákvæmum aðferðum. 
 Þetta voru mín fyrstu kynni af því að þurfa að sætta mig við einhverja lausn 
 sem var ekki endilega hin fræðilega ,,besta'' lausn. 
 Hér koma brjóstvitsaðferðir (e. heuristics) eða ,,þumalputtareglur'' sterkar 
-inn, en þá er stóra spurningin hvernig má koma á sjálfvirkni í því ferli?
+inn, en þá er stóra spurningin hvernig má koma á sjálfvirkni í því ferli? 
+Til að geta gert það þá er gott að hafa skilning á því hvernig einfaldar 
+reglur eru takast á við verkefnið og athuga hvort hægt sé að læra eitthvað á 
+því áður en hafist er handa með flóknari algrím. 
+Mun því þessi grein fjalla um gæðamæt einföldum brjóstvitsaðferðum úr fræðunum. 
 
 \section{Verkniðurröðun á vélar}
 Gerum ráð fyrir að við höfum $n\times m$ JSP, 
@@ -71,7 +75,7 @@ heldur þarf líka að athuga hvar væri best að staðsetja það.
 Þar sem við viljum búa til samþjappaðar tímaáætlanir  þá setjum við verkið af 
 stað um leið og það er laust. 
 Skoðnum nú Gantt ritið á mynd \ref{fig:jssp:example} sem sýnir dæmi um 
-$6\times5$ JSP þar sem verknúmerið er gefið inn í kassa og er breidd hans 
+$6\times5$ JSP þar sem verknúmerið er gefið inn í kassa og er breidd þess 
 vinnslutími verksins, 
 vélarnar eru á lóðrétta ásinum og lárétti ásinn segir til um tíma 
 og er núverandi $C_{\max}$ gefið sem punktalína. 
@@ -82,23 +86,23 @@ Búið er að setja af stað 15 aðgerðir, nefnilega,
 þar af leiðandi eru ókláruðu verkin eftirfarandi 
 $\mathcal{L}=\{J_1,J_2,J_4,J_5,J_6\}$, sem lýsa þeim 5 mögulegu verkum sem geta 
 verið afgreidd á tímapunkti $k=16$ (athugið að verk $J_3$ er fullklárað) -- 
-þessi verk eru gefin upp með brotalínu og lýsa hvernig staðan gæti breyst. 
+þessi verk eru gefin upp með brotalínu og sýna hvernig staðan gæti breyst. 
 Við sjáum að $J_2$ getur verið staðsett á $M_3$ annaðhvort á milli  $J_3$ og 
 $J_4$, eða eftir $J_4$.  Ef $J_6$ hefði nú þegar verið afgreitt, þá myndi 
 myndast rauf á milli þess og $J_4$, þ.a.l. myndast þriðji möguleikinn, þ.e. 
 fyrir $J_2$ er sett eftir $J_6$. 
 Uppbyggingaralgrímið þarf því að ákveða hvert þessara raufa ætti að vera 
 valið fyrir verkið og er það óháð röðunarreglunni sem er notuð. 
-Mismunandi staðsetningaraðferðir geta verið skoðaðar, t.a.m. að velja þau rauf 
-sem er minnsta (en nægjanlega stór) fyrir verkið. En grunnrannsóknir sýndu að 
+Mismunandi staðsetningaraðferðir geta verið skoðaðar, t.a.m. að velja þá rauf 
+sem er minnsta (en nægjanlega stór) fyrir verkið. Grunnrannsóknir sýndu að 
 slík nálgun gat í raun útilokað bestu lausn m.t.t. lágmarks heildartíma. 
 En slík staða kom ekki upp ef við afgreiðum verkin um leið og þau berast. 
 
 \section{Röðunarreglur}
-Einfaldar röðunarreglur (SDR, e. single-based priority dispatching rule) 
-(SDR), er fall af sérkennum verka/véla tímaáætlunarinnar. Sérkennin geta verið 
-fastar eða breyst í takti við ferlið. Til dæmis getur forgangurinn byggst á 
-eiginleikum vinnslutíma verkanna, 
+Einfaldar röðunarreglur (SDR, e. single-based priority dispatching rule), er 
+fall af sérkennum verka og/eða véla tímaáætlunarinnar. Sérkennin geta verið 
+fastar eða breyst í takti við ákvarðanaferlið. Til dæmis getur forgangurinn 
+byggst á eiginleikum vinnslutíma verkanna, til dæmis, 
 \begin{description}
     \item[Minnsti vinnlutími (SPT, e. shortest immediate processing time)] 
     \hfill \\ gráðug aðferð sem klárar verk með minnsta vinnslutíma fyrst, 
@@ -121,7 +125,8 @@ lýsing á SDR eftir \citet{Haupt89}.
 Við skulum skoða nú tvær gagnadreifingar fyrir JSP, nefnilega með slembinni 
 uppröðun, kallað \texttt{j.rnd}, og einsleitri uppröðun, kallað \texttt{f.rnd}. 
 Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifinu á bilinu $[1,99]$.
-Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu, og vitum bestu lausn. 
+Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu, og vitum bestu lausn 
+með því að besta með hugbúnaði fyrir línuleg bestunarverkefni \citep{gurobi}. 
 Þar sem vinnslutíminn er mismunandi þá munum við styðjast við að lágmarka 
 frávik frá bestu lausn með eftirfarandi hætti, 
 \begin{equation}
@@ -146,15 +151,15 @@ gagnstæð regla, LWR, kemur umtalsvert betur út.
 Í mörgum tilfellum þá er látið staðar numið við þessar niðurstöður og sú DR sem 
 kom best út er valin fyrir verkefnið. En það sem við viljum vita er hvað 
 aðgreinir þessar reglur? Af hverju er svona mikill munur á niðurstöðum? 
-Sérstaklega í ljósi þess að innblástur þeirra virðist ekki vera svo ólíkur, SPT 
-svipar til LWR og LPT til MWR. Einnig er SPT andstæða LPT og LWR fyrir MWR. Af 
-hverju er einsleit verkumröðun \texttt{f.rnd} að velja LWR fram yfir MWR og 
+Sérstaklega í ljósi þess að innblástur þeirra virðist ekki vera svo ólíkur; 
+SPT svipar til LWR og LPT til MWR. Einnig er SPT andstæða LPT og LWR fyrir MWR. 
+Af hverju er einsleit verkumröðun \texttt{f.rnd} að velja LWR fram yfir MWR og 
 öfugt? Einnig hvenær fer að greina á gæði lausnanna með þessum aðferðum?
 
 Ef við skoðum bestu lausnir fyrir verkefnin og athuga hvenær þær væru 
 jafngildar að beita SDR, líkt og mynd \ref{fig:diff:opt:SDR} sýnir, þá fyrir 
-\texttt{j.rnd} má sjá að oftar en ekki er LWR og LPT verri en að velja reglu að 
-handahófi (brotalína) sem útskýrir slakar niðurstöður þeirra. 
+\texttt{j.rnd} má sjá að oftar en ekki er LWR og LPT verri en að velja verk að 
+handahófi sé best (brotalína), sem útskýrir slakar niðurstöður þeirra. 
 Einnig má sjá að SPT sýnir hegðun sem er líklegri til að 
 hagstæðri en MWR -- en aðeins til að byrja með. Eftir það fer MWR að vera 
 líklegri til vinnings. En því miður er ekki hægt að beita SPT fyrst (segjum frá 
@@ -168,8 +173,8 @@ stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af.
     \label{fig:diff:opt:SDR}
 \end{figure}
 
-Aftur á móti má sjá, hvernig eru reglurnar að breytast frá öðrum verkum sem 
-fall af tíma. Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið $\rho$ er 
+Aftur á móti má sjá, hvernig eru reglurnar að breytast frá öðrum verkum? 
+Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið $\rho$ er 
 að breytast sem fall af ákvörðunarskrefi með því að fylgja ákveðinni SDR 
 (brotalína). Einnig er skoðað hvernig væru besta og versta frávik frá þeirri 
 sömu stöðu, þ.e. ef við fylgdum ekki reglunni. 
