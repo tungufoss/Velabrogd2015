@@ -9,7 +9,9 @@
 \input{../shorthandCommon}
 
 %opening
-\title{Vélabrögð} % 1000-2000 orð
+\title{Skilningur á röðunarreglum fyrir verkniðurröðun á vélum\\ 
+    \vspace{6pt}
+    \small Grein fyrir Vélabrögð} % 1000-2000 orð
 \author{Helga Ingimundardóttir}
 
 \begin{document}
@@ -144,7 +146,7 @@ frávik frá bestu lausn með eftirfarandi hætti,
 þar sem $C_{\max}^{\text{DR}}$ er fengið með DR og $C_{\max}^{\text{opt}}$ er 
 besta lausn. 
 
-Nú eru SDR sem voru kynntar ááðan notaðar á  gagnasettin. Kassarit fyrir 
+Nú eru SDR sem voru kynntar áðan notaðar á  gagnasettin. Kassarit fyrir 
 $\rho$ er gefið upp í mynd \ref{fig:boxplot}. Við sjáum að það er greinilegur 
 munur á því hvaða SDR er beitt á gögnin, t.a.m. er MWR mjög hentug regla fyrir 
 \texttt{j.rnd}, aftur á móti er það ekki tilvikið fyrir \texttt{f.rnd} þar sem 
@@ -170,9 +172,9 @@ jafngildar að beita SDR, líkt og mynd \ref{fig:diff:opt:SDR} sýnir, þá fyri
 handahófi sé best (brotalína), sem útskýrir slakar niðurstöður þeirra. 
 Einnig má sjá að SPT sýnir hegðun sem er líklegri til að 
 hagstæðri en MWR -- en aðeins til að byrja með. Eftir það fer MWR að vera 
-líklegri til vinnings. En því miður er ekki hægt að beita SPT fyrst (segjum frá 
+vænlegri til vinnings. En því miður er ekki hægt að beita SPT fyrst (segjum frá 
 skrefi 1-10) og láta svo MWR taka svo við, því þá erum við nú þegar búin að 
-stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af. 
+stilla tímaáætlunina á þann veg að MWR nær ekki að rétta sig af. 
 
 \begin{figure}\centering
     \includegraphics[width=0.5\textwidth]{figures/{stepwise.6x5.OPT.SDR}.pdf}
@@ -181,14 +183,14 @@ stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af.
     \label{fig:diff:opt:SDR}
 \end{figure}
 
-Deila má hvert þetta sé nægjanlegur samanburður. Því það sem verið er að gera 
+Deila má hvort þetta sé nægjanlegur samanburður. Því það sem verið er að gera 
 hér er að \glqq elta\grqq\ bestu lausn og reyna að skoða \emph{eftir á} hvernig 
 hefði mátt velja samsvarandi SDR sem hefði gefið sömu lausn, úr \emph{bestu} 
 stöðu. 
-Vandamálið felst einna helst í því að um leið og \glqq röng\grqq\ ákvörðun þá 
-er byrjað að afvegaleiða lausnina í ástandsrúminu.
+Vandamálið felst einna helst í því að um leið og \glqq röng\grqq\ ákvörðun er 
+tekin þá er byrjað að afvegaleiða lausnina í ástandsrúminu.
 Því skiptir máli að lágmarka afleiðingu þess í hvert sinn, þar sem yfirleitt 
-eru gerðar ítrekað rangar ákvarðanir. Þá skiptir máli, að velja 
+eru gerðar ítrekaðar rangar ákvarðanir. Jafnframt skal huga að því að velja 
 a.m.k. \glqq góðar\grqq\ rangar ákvarðanir.
 
 Ef við skoðum nú hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
@@ -216,7 +218,7 @@ iðulega betri en þær einar og sér \citep{Jayamohan04}.
 \citet{Siggi05} hafa til að mynda notað ákvarðanatré til að læra LPT fyrir 
 JSP. 
 Vankanturinn þar var sá að þá var verið að reyna að læra regluna án þess að 
-umbuna þau frávik sem hefðu leitt til betri niðurstöður. 
+umbuna þau frávik sem hefðu leitt til betri niðurstöðu. 
 Væri því rökrétt að læra frekar af væntri niðurstöðu, þ.e. afleitt $C_{\max}$ 
 fyrir gefna ákvörðun m.t.t. bestu lausnar, líkt og gert var síðar í 
 \cite{Malik08,Russell09} og \cite{Siggi10}. Þannig má finna CDR sem betrumbætir 
@@ -228,15 +230,15 @@ til að finna línulegt fall sérkenna byggt á þjálfunargögnum þar sem stö
 leiddu af sér hagstæðra $C_{\max}$ voru teknar fram yfir óhagstæðari. 
 Niðurstöður leiddu í ljós að það gott að búa til módel sem byggjast á bestu 
 lausnum. Aftur á móti geta þjálfunargögnin verið einsleit og þar af leiðandi 
-ekki nægjanlega lýsandi fyrir ástandsrýmið. 
+ekki nægjanlega lýsandi fyrir ástandsrúmið. 
 Þá var brugðið á það ráð að bæta við þjálfunargögnum sem byggðust á 
 góðum SDR til að veita meiri fjölbreytileika til að læra af og til að takast á 
 við að festast í staðbundnu lággildi, með góðum niðurstöðum. 
 Mögulega er breytileikinn á milli gagna of mikil með slíkri nálgun. 
 Núverandi rannsóknir ganga út á eftirlíkingarlærdóm (e. imitation learning) í 
 anda \cite{RossB10} og \cite{RossGB11} þar sem búið er til módel sem lærir 
-forgang af bestu braut (sbr. \cite{InRu11a,InRu15a}), sem er síðan notað til að 
-búa til ný þjálfunargögn. 
+forgang af bestu lausnum (sbr. \cite{InRu11a,InRu15a}), sem er síðan notað til 
+að búa til ný þjálfunargögn. 
 Þetta er gert á endurkvæman hátt, þar sem í hverri ítrun nær módelið að 
 endurspegla þjálfunargögnin betur og betur. 
 Fyrstu niðurstöður liggja fyrir og ýtir aðferðin uppá við afköst núverandi 
