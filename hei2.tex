@@ -1,4 +1,6 @@
-\documentclass[]{article}
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,margin=0.75in]{geometry}
+
 \usepackage[T1]{fontenc}
 \usepackage[icelandic]{babel}
 \usepackage{lipsum}
@@ -16,7 +18,7 @@
 
 %\begin{abstract}\end{abstract}
 
-\section{Inngangur}
+%\section{Inngangur}
 Í stuttu máli snýst verkefnið um að læra að bera kennsl á góðar lausnir. 
 Ég hef einskorðað verkefnið við tilviksrannsókn á verkniðurröðun á vélum (JSP, 
 e. job-shop scheduling problem) 
@@ -38,7 +40,7 @@ reglur eru takast á við verkefnið og athuga hvort hægt sé að læra eitthva
 þeim áður en hafist er handa með flóknari reiknirit. 
 Mun því þessi grein fjalla um gæðamæt einföldum brjóstvitsaðferðum úr fræðunum. 
 
-\section{Verkniðurröðun á vélar}
+\section*{Verkniðurröðun á vélar}
 Gerum ráð fyrir að við höfum $n\times m$ JSP, 
 þar sem $n$ verk, $\mathcal{J}=\{J_j\}_{j=1}^n$, 
 eiga að vera afgreidd á $m$ vélum, $\mathcal{M}=\{M_a\}_{a=1}^m$. 
@@ -54,7 +56,7 @@ Markfallið er að tímasetja öll verk þannig að lágmarka skal hámarks heil
 (e. makespan), $C_{\max}$. 
 
 \begin{figure}\centering
-    \includegraphics[width=0.8\textwidth]{figures/jssp_example.eps}
+    \includegraphics[width=0.5\textwidth]{figures/jssp_example.eps}
     \caption[Gantt rit af ókláraðri JSP stundaskrá]{Gantt rit af ókláraðri JSP 
     stundaskrá eftir 15 aðgerðir: heilir kassar tákna $\vchi$ og kassar með 
     brotalínu tákna $\mathcal{L}^{(16)}$. 
@@ -101,7 +103,7 @@ sem er minnsta (en nægjanlega stór) fyrir verkið. Grunnrannsóknir sýndu að
 slík nálgun gat í raun útilokað bestu lausn m.t.t. lágmarks heildartíma. 
 En slík staða kom ekki upp ef við afgreiðum verkin um leið og þau berast. 
 
-\section{Röðunarreglur}
+\section*{Röðunarreglur}
 Einfaldar röðunarreglur (SDR, e. single-based priority dispatching rule), er 
 fall af sérkennum verka og/eða véla tímaáætlunarinnar. Sérkennin geta verið 
 fastar eða breyst í takti við ákvarðanaferlið. Til dæmis getur forgangurinn 
@@ -123,13 +125,13 @@ skilvirkni, en ótal fleiri reglur koma líka til greina. Yfirlit yfir 100
 sígildar röðunarreglur má finna í \citet{Panwalkar77}, en einnig er greinargóð 
 lýsing á SDR eftir \citet{Haupt89}. 
 
-\section{Tilraunir}
+\section*{Tilraunir}
 Við skulum skoða nú tvær gagnadreifingar fyrir JSP, nefnilega með slembinni 
 uppröðun, kallað \texttt{j.rnd}, og einsleitri uppröðun, kallað \texttt{f.rnd}. 
 Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifingu á bilinu 
 $[1,99]$.
 Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu, og vitum bestu lausn 
-með því að besta með hugbúnaði fyrir línuleg bestunarverkefni \citep{gurobi}. 
+með því að besta með hugbúnaði fyrir línuleg bestunarverkefni. 
 
 Þar sem vinnslutíminn er mismunandi þá munum við styðjast við að lágmarka 
 frávik frá bestu lausn með eftirfarandi hætti, 
@@ -147,7 +149,7 @@ munur á því hvaða SDR er beitt á gögnin, t.a.m. er MWR mjög hentug regla 
 gagnstæð regla, LWR, kemur umtalsvert betur út. 
 
 \begin{figure}\centering
-    \includegraphics[width=0.8\textwidth]{figures/boxplot.pdf}
+    \includegraphics[width=0.5\textwidth]{figures/boxplot.pdf}
     \caption{Kassarit fyrir SDR}
     \label{fig:boxplot}
 \end{figure}
@@ -171,14 +173,24 @@ skrefi 1-10) og láta svo MWR taka svo við, því þá erum við nú þegar bú
 stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af. 
 
 \begin{figure}\centering
-    \includegraphics[width=0.8\textwidth]{figures/{stepwise.6x5.OPT.SDR}.pdf}
+    \includegraphics[width=0.5\textwidth]{figures/{stepwise.6x5.OPT.SDR}.pdf}
     \caption{Líkurnar að SDR sé hagstæðust, brotalínan lýsir að verk að 
     handhófi sé hagstæðast.}
     \label{fig:diff:opt:SDR}
 \end{figure}
 
-Spyrjum okkur nú, hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
-ekki valin? 
+Deila má hvert þetta sé nægjanlegur samanburður. Því það sem verið er að gera 
+hér er að ,,elta'' bestu lausn og reyna að skoða \emph{eftir á} hvernig hefði 
+mátt velja samsvarandi SDR sem hefði gefið okkur sömu lausn, úr þessari 
+\emph{bestu} stöðu sem verið erum í. Vandamálið felst einna helst í því að um 
+leið og við gerum ,,ranga'' ákvörðun þá eru byrjað að afvegaleiða lausnina í 
+ástandsrúminu. Því skiptir máli að lágmarka afdrif þess hverju sinni þar sem 
+yfirleitt eru gerðar ítrekað rangar ákvarðanir. Þá skiptir máli, að velja 
+a.m.k. ,,góðar'' rangar ákvarðanir.
+
+Ef við skoðnum nú hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
+ekki valin? Með öðrum orðum, sambærilegt og áður í mynd \ref{fig:diff:opt:SDR}, 
+nema nú eltum við SDR í stað bestu lausnar. 
 Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið á $\rho$ er 
 að breytast sem fall af ákvörðunarskrefi með því að fylgja ákveðinni SDR 
 (brotalína). Einnig er skoðað hvernig væru besta og versta frávik frá þeirri 
@@ -186,18 +198,46 @@ sömu stöðu, þ.e. ef við fylgdum ekki reglunni.
 Þá sést glögglega að MWR er stöðugri í að koma sér í betri stöðu en SPT, 
 jafnvel þótt bestu lausnirnar virtust fylgja SPT hegðun til að byrja með. 
 
+Með því að líta á frávikin frá reglunum, þá eru augljóslega tækifæri að 
+betrumbæta reglurnar upp á einhverju marki, þ.e. þegar besta frávik er lægra 
+heldur en að fylgja reglunni. Þetta stenst við fræðin, því ef vandað er til 
+verks þá eru samsettar röðunarreglur (CDR, e. composite dispatching rules)  
+iðulega betri en samsetningar þeirra einar og sér \citep{Jayamohan04}. 
+
 \begin{figure}\centering
-    \includegraphics[width=0.8\textwidth]{figures/{stepwise.6x5.Track.casescenario}.pdf}
+    \includegraphics[width=0.5\textwidth]{figures/{stepwise.6x5.Track.casescenario}.pdf}
     \caption{Breyting frávik sem fall af áætlunarskrefi fyrir gefið SDR.}
     \label{diff:case:track:6x5}
 \end{figure}
 
-
+Til að mynda hefur \cite{Siggi05} notað ákvarðanatré til að læra LPT fyrir JSP. 
+Vankanturinn þar var sá að þá var verið að reyna að læra regluna án þess að 
+umbuna þau frávik sem hefðu leitt til betri niðurstöður. 
+Væri því rökrétt að læra frekar af væntri niðurstöðu, þ.e. afleitt $C_{\max}$ 
+fyrir gefna ákvörðun m.t.t. bestu lausnar, líkt og gert var síðar í 
+\cite{Siggi10,Siggi10,Malik08,Russell09}. Þannig má finna CDR sem betrumbætir 
+LPT regluna sem hún byggist á. Slík var nálgunin hjá mér í \cite{InRu15a}, þar 
+sem skoðað voru 13 sérkenni JSP lausna, sem innblástur var mikið til sóttur til 
+sígildra SDR, en þar var framkvæmdur forgangslærdómur (e. preference learning) 
+til að finna línulegt fall sérkenna byggt á þjálfunargögnum þar sem stöður sem 
+leiddu af sér hagstæðra $C_{\max}$ voru teknar fram yfir óhagstæðari. 
+Niðurstöður leiddu í ljós að það gott að búa til módel sem byggjast á bestu 
+lausnum. Aftur á móti geta þjálfunargögnin verið einsleit, og þar af leiðandi 
+ekki nægjanlega lýsandi fyrir ástandsrýmið þegar módelið verður ósamleitið 
+bestu braut. Þá er brugðið á það ráð að bæta við þjálfunargögnum sem byggjast á 
+góðum SDR til að veita meiri fjölbreytileika til að læra af, til að takast á 
+við að festast í staðbundnu lággildi, með góðum niðurstöðum. 
+Mögulega er breytileikinn á milli gagna of mikill með slíkri nálgun. 
+Núverandi rannsóknir ganga út á eftirlíkingarlærdóm (e. imitation learning) í 
+anda \cite{RossB10,RossGB11} þar sem búið er til módel sem lærir forgang af 
+bestu braut (sbr. \cite{InRu11a,InRu15a}), sem er síðan notað til að búa til ný 
+þjálfunargögn. Þetta er gert á endurkvæman hátt, þar sem í hverri ítrun 
+nær módelið að endurspegla þjálfunargögnin betur og betur. Fyrstu niðurstöður 
+liggja fyrir og ýtir aðferðin uppá við afköst núverandi aðferðafræði. 
 
 %          Problem Dimension    Q1    Q3
 %          j.rnd.6x5   j.rnd       6x5 19.91 47.21
 %          f.rnd.6x5   f.rnd       6x5 18.46 35.52
-
 
 \bibliographystyle{unsrtnat}
 \bibliography{../references}  
