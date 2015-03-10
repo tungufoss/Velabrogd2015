@@ -22,13 +22,13 @@
 Í stuttu máli snýst verkefnið um að læra að bera kennsl á góðar lausnir. 
 Ég hef einskorðað verkefnið við tilviksrannsókn á verkniðurröðun á vélum (JSP, 
 e. job-shop scheduling problem) 
-sem felst í því að þurfa að gera raðbundnar ákvarðanir um hvaða verk eigi 
-að vera afgreitt næst, þar sem þau eru að keppast um sömu aðföngin.
+sem felst í raðbundinni ákvörðunartöku um hvaða verk eigi að afgreiða næst, þar 
+sem þau keppast um sömu aðföngin.
 Í raun má útvíkka aðferðafræðina til hvers kyns strjála bestun. 
 
 Hugmyndina að rannsókninni kviknaði þegar ég var að vinna í raunhæfu verkefni í 
-aðgerðagreiningu í grunnnámi mínu. Um var að ræða bestun á verkniðurröðun fyrir 
-Össur. Í eðli sínu er verkniðurröðun tiltölulega einfalt verkefni, og skipar 
+aðgerðagreiningu í grunnnámi mínu, sem var bestun á verkniðurröðun fyrir 
+Össur. Í eðli sínu er verkniðurröðun tiltölulega einfalt verkefni, sem skipar 
 stóran sess hjá framleiðslufyrirtækjum en stærðargráðan á vandamálinu gerir það 
 að verkum að oft er erfitt að leysa verkefnið með nákvæmum aðferðum. 
 Þetta voru mín fyrstu kynni af því að þurfa að sætta mig við einhverja lausn 
@@ -49,11 +49,11 @@ Verkefnin þurfa að vera afgreidd í tiltekinni röð, þ.e. sérhvert verk $J_
 $\vsigma_j=\{\sigma_{j1},\sigma_{j2},\dotsc,\sigma_{jm}\}$. 
 Rétt er að taka fram að verk getur ekki hafist handa á næstu vél fyrr en það 
 hefur lokið núverandi aðgerð. 
-Þar að auki getur sérhver vél aðeins meðhöndlað eitt verk í einu. 
-Viðbættar skorður sem eru oft teknar til greina eru sleppitími og útgáfutími, 
+Þar að auki getur sérhver vél aðeins meðhöndlað/unnið eitt verk í einu. 
+Viðbættar skorður sem eru oft teknar til greina eru sleppitími og skilafrest, 
 en þeir eru ekki til skoðunar hér.
-Markfallið er að tímasetja öll verk þannig að lágmarka skal hámarks heildartíma 
-(e. makespan), $C_{\max}$. 
+Markfallið tímasetur öll verk þannig hámarks heildartíma (e. makespan), 
+$C_{\max}$, er lágmarkaður. 
 
 \begin{figure}\centering
     \includegraphics[width=0.5\textwidth]{figures/jssp_example.eps}
@@ -66,10 +66,10 @@ Markfallið er að tímasetja öll verk þannig að lágmarka skal hámarks heil
 
 Brjóstvitsaðferðir fyrir tímaáætlanir eru yfirleitt uppbyggingar- eða 
 umbætunaralgrím.
-Umbætunaralgrím byrja á fullbúinni lausn og reynir að finna sambærilegar, en 
+Umbætunaralgrím byrjar á fullbúinni lausn og reynir að finna sambærilegar, en 
 betri lausnir. 
-Uppbyggingaralgrím byrja aftur á móti með tómri lausn og bæta við einu verki í 
-einu þar til lausnin er fullbúin, og er það sú nálgun sem aðferðafræðin mín 
+Uppbyggingaralgrím byrjar aftur á móti með tómri lausn og bæta við einu verki í 
+einu þar til lausnin er fullbúin og er það sú nálgun sem aðferðafræðin mín 
 gengur út frá. 
 Í þessu tilfelli þá eru yfirleitt röðunarreglur (DR, e. dispatching 
 rules) sem ákvarða hvaða ókláraða verk verður valið næst. 
@@ -78,7 +78,7 @@ rules) sem ákvarða hvaða ókláraða verk verður valið næst.
 heldur þarf líka að athuga hvar væri best að staðsetja það. 
 Þar sem við viljum búa til samþjappaðar tímaáætlanir  þá setjum við verkið af 
 stað um leið og það er laust. 
-Skoðnum nú Gantt ritið á mynd \ref{fig:jssp:example} sem sýnir dæmi um 
+Skoðum nú Gantt ritið á mynd \ref{fig:jssp:example} sem sýnir dæmi um 
 $6\times5$ JSP þar sem verknúmerið er gefið inn í kassa og er breidd þess 
 vinnslutími verksins, 
 vélarnar eru á lóðrétta ásinum og lárétti ásinn segir til um tíma aðgerða,
@@ -101,7 +101,7 @@ valið fyrir verkið og er það óháð röðunarreglunni sem er notuð.
 Mismunandi staðsetningaraðferðir geta verið skoðaðar, t.a.m. að velja þá rauf 
 sem er minnsta (en nægjanlega stór) fyrir verkið. Grunnrannsóknir sýndu að 
 slík nálgun gat í raun útilokað bestu lausn m.t.t. lágmarks heildartíma. 
-En slík staða kom ekki upp ef við afgreiðum verkin um leið og þau berast. 
+Sú staða kemur ekki upp ef verkin eru afgreidd um leið og þau berast. 
 
 \section*{Röðunarreglur}
 Einfaldar röðunarreglur (SDR, e. single-based priority dispatching rule), er 
@@ -109,28 +109,28 @@ fall af sérkennum verka og/eða véla tímaáætlunarinnar. Sérkennin geta ver
 fastar eða breyst í takti við ákvarðanaferlið. Til dæmis getur forgangurinn 
 byggst á eiginleikum vinnslutíma verkanna, til dæmis, 
 \begin{description}
-    \item[Minnsti vinnlutími (SPT, e. shortest immediate processing time)] 
-    \hfill \\ gráðug aðferð sem klárar verk með minnsta vinnslutíma fyrst, 
-    \item[Stærsti vinnslutími (LPT, e. longest immediate processing time)] 
-    \hfill \\ gráðug aðferð sem klárar verk með stærsta vinnslutíma fyrst, 
+    \item[Stysti vinnlutími (SPT, e. shortest immediate processing time)] 
+    \hfill \\ gráðug aðferð sem klárar verk með minnsta vinnslutíma fyrst. 
+    \item[Lengsti vinnslutími (LPT, e. longest immediate processing time)] 
+    \hfill \\ gráðug aðferð sem klárar verk með stærsta vinnslutíma fyrst. 
     \item[Minnsta heildarvinna (LWR, e. least work remaining)] \hfill \\
     þar sem ásetningurinn er að klára verk sem eru komin langt á veg í 
-    framvindu sinni, þ.e. að lágmarka verklistann $\mathcal{L}$,
-    \item[Stærsta heildarvinna (MWR, e. most work remaining)] \hfill \\
+    framvindu sinni, þ.e. að lágmarka verklistann $\mathcal{L}$.
+    \item[Mesta heildarvinna (MWR, e. most work remaining)] \hfill \\
     þar sem ásetningurinn er að flýta fyrir framvindu verka sem krefjast mikinn 
-    vinnslutíma, og gefur því af sér jafnari framvindu fyrir öll verk.
+    vinnslutíma og gefur því af sér jafnari framvindu fyrir öll verk.
 \end{description}
 Þetta eru þær algengustu röðunarreglur í starfi vegna einfaldleika þeirra og 
-skilvirkni, en ótal fleiri reglur koma líka til greina. Yfirlit yfir 100 
+skilvirkni, en ótal fleiri reglur koma til greina. Yfirlit yfir 100 
 sígildar röðunarreglur má finna í \citet{Panwalkar77}, en einnig er greinargóð 
 lýsing á SDR eftir \citet{Haupt89}. 
 
 \section*{Tilraunir}
-Við skulum skoða nú tvær gagnadreifingar fyrir JSP, nefnilega með slembinni 
+Skoðum nú tvær gagnadreifingar fyrir JSP, með slembinni 
 uppröðun, kallað \texttt{j.rnd}, og einsleitri uppröðun, kallað \texttt{f.rnd}. 
 Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifingu á bilinu 
 $[1,99]$.
-Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu, og vitum bestu lausn 
+Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu og vitum bestu lausn 
 með því að besta með hugbúnaði fyrir línuleg bestunarverkefni. 
 
 Þar sem vinnslutíminn er mismunandi þá munum við styðjast við að lágmarka 
@@ -222,7 +222,7 @@ sígildra SDR, en þar var framkvæmdur forgangslærdómur (e. preference learni
 til að finna línulegt fall sérkenna byggt á þjálfunargögnum þar sem stöður sem 
 leiddu af sér hagstæðra $C_{\max}$ voru teknar fram yfir óhagstæðari. 
 Niðurstöður leiddu í ljós að það gott að búa til módel sem byggjast á bestu 
-lausnum. Aftur á móti geta þjálfunargögnin verið einsleit, og þar af leiðandi 
+lausnum. Aftur á móti geta þjálfunargögnin verið einsleit og þar af leiðandi 
 ekki nægjanlega lýsandi fyrir ástandsrýmið þegar módelið verður ósamleitið 
 bestu braut. Þá er brugðið á það ráð að bæta við þjálfunargögnum sem byggjast á 
 góðum SDR til að veita meiri fjölbreytileika til að læra af, til að takast á 
