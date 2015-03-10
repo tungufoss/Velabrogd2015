@@ -29,16 +29,18 @@ sem þau keppast um sömu aðföngin.
 Hugmyndina að rannsókninni kviknaði þegar ég var að vinna í raunhæfu verkefni í 
 aðgerðagreiningu í grunnnámi mínu, sem var bestun á verkniðurröðun fyrir 
 Össur. Í eðli sínu er verkniðurröðun tiltölulega einfalt verkefni, sem skipar 
-stóran sess hjá framleiðslufyrirtækjum en stærðargráðan á vandamálinu gerir það 
-að verkum að oft er erfitt að leysa verkefnið með nákvæmum aðferðum. 
+stóran sess hjá framleiðslufyrirtækjum, en stærðargráðan á vandamálinu gerir 
+það að verkum að oft er erfitt að leysa verkefnið með nákvæmum aðferðum. 
 Þetta voru mín fyrstu kynni af því að þurfa að sætta mig við einhverja lausn 
-sem var ekki endilega hin fræðilega ,,besta'' lausn. 
-Hér koma brjóstvitsaðferðir (e. heuristics) eða ,,þumalputtareglur'' sterkar 
+sem var ekki endilega hin fræðilega \glqq besta\grqq\ lausn. 
+Hér koma brjóstvitsaðferðir (e. heuristics) eða \glqq þumalputtareglur\grqq\ 
+sterkar 
 inn, en þá er stóra spurningin hvernig má koma á sjálfvirkni í því ferli? 
 Til að geta gert það, þá er gott að hafa skilning á því hvernig einfaldar 
 reglur eru takast á við verkefnið og athuga hvort hægt sé að læra eitthvað á 
 þeim áður en hafist er handa með flóknari reiknirit. 
-Mun því þessi grein fjalla um gæðamæt einföldum brjóstvitsaðferðum úr fræðunum. 
+Mun því þessi grein fjalla um gæðamat á einföldum brjóstvitsaðferðum úr 
+fræðunum. 
 
 \section*{Verkniðurröðun á vélar}
 Gerum ráð fyrir að við höfum $n\times m$ JSP, 
@@ -52,7 +54,7 @@ hefur lokið núverandi aðgerð.
 Þar að auki getur sérhver vél aðeins meðhöndlað/unnið eitt verk í einu. 
 Viðbættar skorður sem eru oft teknar til greina eru sleppitími og skilafrest, 
 en þeir eru ekki til skoðunar hér.
-Markfallið tímasetur öll verk þannig hámarks heildartíma (e. makespan), 
+Markfallið tímasetur öll verk þannig hámarks heildartími (e. makespan), 
 $C_{\max}$, er lágmarkaður. 
 
 \begin{figure}\centering
@@ -82,7 +84,7 @@ Skoðum nú Gantt ritið á mynd \ref{fig:jssp:example} sem sýnir dæmi um
 $6\times5$ JSP þar sem verknúmerið er gefið inn í kassa og er breidd þess 
 vinnslutími verksins, 
 vélarnar eru á lóðrétta ásinum og lárétti ásinn segir til um tíma aðgerða,
-þar sem núverandi $C_{\max}$ gefið sem punktalína. 
+þar sem núverandi $C_{\max}$ er gefið sem punktalína. 
 Búið er að setja af stað 15 aðgerðir, nefnilega, 
 \begin{eqnarray}
 \vchi=\left(J_3,J_3,J_3,J_3,J_4,J_4,J_5,J_1,J_1,J_2,J_4,J_6,J_4,J_5,J_3\right),
@@ -180,13 +182,15 @@ stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af.
 \end{figure}
 
 Deila má hvert þetta sé nægjanlegur samanburður. Því það sem verið er að gera 
-hér er að ,,elta'' bestu lausn og reyna að skoða \emph{eftir á} hvernig hefði 
+hér er að \glqq elta\grqq\ bestu lausn og reyna að skoða \emph{eftir á} hvernig 
+hefði 
 mátt velja samsvarandi SDR sem hefði gefið okkur sömu lausn, úr þessari 
 \emph{bestu} stöðu sem verið erum í. Vandamálið felst einna helst í því að um 
-leið og við gerum ,,ranga'' ákvörðun þá eru byrjað að afvegaleiða lausnina í 
+leið og við gerum \glqq ranga\grqq\ ákvörðun þá eru byrjað að afvegaleiða 
+lausnina í 
 ástandsrúminu. Því skiptir máli að lágmarka afdrif þess hverju sinni þar sem 
 yfirleitt eru gerðar ítrekað rangar ákvarðanir. Þá skiptir máli, að velja 
-a.m.k. ,,góðar'' rangar ákvarðanir.
+a.m.k. \glqq góðar\grqq\ rangar ákvarðanir.
 
 Ef við skoðnum nú hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
 ekki valin? Með öðrum orðum, sambærilegt og áður í mynd \ref{fig:diff:opt:SDR}, 
@@ -215,9 +219,9 @@ Vankanturinn þar var sá að þá var verið að reyna að læra regluna án þ
 umbuna þau frávik sem hefðu leitt til betri niðurstöður. 
 Væri því rökrétt að læra frekar af væntri niðurstöðu, þ.e. afleitt $C_{\max}$ 
 fyrir gefna ákvörðun m.t.t. bestu lausnar, líkt og gert var síðar í 
-\cite{Siggi10,Siggi10,Malik08,Russell09}. Þannig má finna CDR sem betrumbætir 
+\cite{Malik08,Russell09} og \cite{Siggi10}. Þannig má finna CDR sem betrumbætir 
 LPT regluna sem hún byggist á. Slík var nálgunin hjá mér í \cite{InRu15a}, þar 
-sem skoðað voru 13 sérkenni JSP lausna, sem innblástur var mikið til sóttur til 
+sem skoðuð voru 13 sérkenni JSP lausna, sem innblástur var mikið til sóttur til 
 sígildra SDR, en þar var framkvæmdur forgangslærdómur (e. preference learning) 
 til að finna línulegt fall sérkenna byggt á þjálfunargögnum þar sem stöður sem 
 leiddu af sér hagstæðra $C_{\max}$ voru teknar fram yfir óhagstæðari. 
@@ -229,11 +233,13 @@ góðum SDR til að veita meiri fjölbreytileika til að læra af, til að takas
 við að festast í staðbundnu lággildi, með góðum niðurstöðum. 
 Mögulega er breytileikinn á milli gagna of mikill með slíkri nálgun. 
 Núverandi rannsóknir ganga út á eftirlíkingarlærdóm (e. imitation learning) í 
-anda \cite{RossB10,RossGB11} þar sem búið er til módel sem lærir forgang af 
-bestu braut (sbr. \cite{InRu11a,InRu15a}), sem er síðan notað til að búa til ný 
-þjálfunargögn. Þetta er gert á endurkvæman hátt, þar sem í hverri ítrun 
-nær módelið að endurspegla þjálfunargögnin betur og betur. Fyrstu niðurstöður 
-liggja fyrir og ýtir aðferðin uppá við afköst núverandi aðferðafræði. 
+anda \cite{RossB10} og \cite{RossGB11} þar sem búið er til módel sem lærir 
+forgang af bestu braut (sbr. \cite{InRu11a,InRu15a}), sem er síðan notað til að 
+búa til ný þjálfunargögn. 
+Þetta er gert á endurkvæman hátt, þar sem í hverri ítrun nær módelið að 
+endurspegla þjálfunargögnin betur og betur. 
+Fyrstu niðurstöður liggja fyrir og ýtir aðferðin uppá við afköst núverandi 
+aðferðafræði. 
 
 %          Problem Dimension    Q1    Q3
 %          j.rnd.6x5   j.rnd       6x5 19.91 47.21
