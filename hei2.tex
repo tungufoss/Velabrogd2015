@@ -52,7 +52,7 @@ $\vsigma_j=\{\sigma_{j1},\sigma_{j2},\dotsc,\sigma_{jm}\}$.
 Rétt er að taka fram að verk getur ekki hafist handa á næstu vél fyrr en það 
 hefur lokið núverandi aðgerð. 
 Þar að auki getur sérhver vél aðeins meðhöndlað/unnið eitt verk í einu. 
-Viðbættar skorður sem eru oft teknar til greina eru sleppitími og skilafrest, 
+Viðbættar skorður sem eru oft teknar til greina eru sleppitími og skilafrestur, 
 en þeir eru ekki til skoðunar hér.
 Markfallið tímasetur öll verk þannig hámarks heildartími (e. makespan), 
 $C_{\max}$, er lágmarkaður. 
@@ -124,12 +124,12 @@ byggst á eiginleikum vinnslutíma verkanna, til dæmis,
 \end{description}
 Þetta eru þær algengustu röðunarreglur í starfi vegna einfaldleika þeirra og 
 skilvirkni, en ótal fleiri reglur koma til greina. Yfirlit yfir 100 
-sígildar röðunarreglur má finna í \citet{Panwalkar77}, en einnig er greinargóð 
+sígildar röðunarreglur má finna í \citet{Panwalkar77}, einnig er greinargóð 
 lýsing á SDR eftir \citet{Haupt89}. 
 
 \section*{Tilraunir}
-Skoðum nú tvær gagnadreifingar fyrir JSP, með slembinni 
-uppröðun, kallað \texttt{j.rnd}, og einsleitri uppröðun, kallað \texttt{f.rnd}. 
+Skoðum nú tvær gagnadreifingar fyrir JSP, slembin
+uppröðun, kölluð \texttt{j.rnd}, og einsleit uppröðun, kölluð \texttt{f.rnd}. 
 Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifingu á bilinu 
 $[1,99]$.
 Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu og vitum bestu lausn 
@@ -144,7 +144,7 @@ frávik frá bestu lausn með eftirfarandi hætti,
 þar sem $C_{\max}^{\text{DR}}$ er fengið með DR og $C_{\max}^{\text{opt}}$ er 
 besta lausn. 
 
-Beitum nú þeim SDR sem við kynntum áðan, á gagnasettin okkar. Kassarit fyrir 
+Nú eru SDR sem voru kynntar ááðan notaðar á  gagnasettin. Kassarit fyrir 
 $\rho$ er gefið upp í mynd \ref{fig:boxplot}. Við sjáum að það er greinilegur 
 munur á því hvaða SDR er beitt á gögnin, t.a.m. er MWR mjög hentug regla fyrir 
 \texttt{j.rnd}, aftur á móti er það ekki tilvikið fyrir \texttt{f.rnd} þar sem 
@@ -183,30 +183,29 @@ stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af.
 
 Deila má hvert þetta sé nægjanlegur samanburður. Því það sem verið er að gera 
 hér er að \glqq elta\grqq\ bestu lausn og reyna að skoða \emph{eftir á} hvernig 
-hefði 
-mátt velja samsvarandi SDR sem hefði gefið okkur sömu lausn, úr þessari 
-\emph{bestu} stöðu sem verið erum í. Vandamálið felst einna helst í því að um 
-leið og við gerum \glqq ranga\grqq\ ákvörðun þá eru byrjað að afvegaleiða 
-lausnina í 
-ástandsrúminu. Því skiptir máli að lágmarka afdrif þess hverju sinni þar sem 
-yfirleitt eru gerðar ítrekað rangar ákvarðanir. Þá skiptir máli, að velja 
+hefði mátt velja samsvarandi SDR sem hefði gefið sömu lausn, úr \emph{bestu} 
+stöðu. 
+Vandamálið felst einna helst í því að um leið og \glqq röng\grqq\ ákvörðun þá 
+er byrjað að afvegaleiða lausnina í ástandsrúminu.
+Því skiptir máli að lágmarka afleiðingu þess í hvert sinn, þar sem yfirleitt 
+eru gerðar ítrekað rangar ákvarðanir. Þá skiptir máli, að velja 
 a.m.k. \glqq góðar\grqq\ rangar ákvarðanir.
 
-Ef við skoðnum nú hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
+Ef við skoðum nú hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
 ekki valin? Með öðrum orðum, sambærilegt og áður í mynd \ref{fig:diff:opt:SDR}, 
 nema nú eltum við SDR í stað bestu lausnar. 
 Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið á $\rho$ er 
 að breytast sem fall af ákvörðunarskrefi með því að fylgja ákveðinni SDR 
-(brotalína). Einnig er skoðað hvernig væru besta og versta frávik frá þeirri 
+(brotalína). Einnig er skoðað hvernig besta og versta frávik væri frá þeirri 
 sömu stöðu, þ.e. ef við fylgdum ekki reglunni. 
-Þá sést glögglega að MWR er stöðugri í að koma sér í betri stöðu en SPT, 
+Þá sést glögglega að MWR er stöðugt að ná betri stöðu en SPT, 
 jafnvel þótt bestu lausnirnar virtust fylgja SPT hegðun til að byrja með. 
 
 Með því að líta á frávikin frá reglunum, þá eru augljóslega tækifæri að 
 betrumbæta reglurnar upp á einhverju marki, þ.e. þegar besta frávik er lægra 
 heldur en að fylgja reglunni. Þetta stenst við fræðin, því ef vandað er til 
 verks þá eru samsettar röðunarreglur (CDR, e. composite dispatching rules)  
-iðulega betri en samsetningar þeirra einar og sér \citep{Jayamohan04}. 
+iðulega betri en þær einar og sér \citep{Jayamohan04}. 
 
 \begin{figure}\centering
     \includegraphics[width=0.5\textwidth]{figures/{stepwise.6x5.Track.casescenario}.pdf}
@@ -214,24 +213,26 @@ iðulega betri en samsetningar þeirra einar og sér \citep{Jayamohan04}.
     \label{diff:case:track:6x5}
 \end{figure}
 
-Til að mynda hefur \cite{Siggi05} notað ákvarðanatré til að læra LPT fyrir JSP. 
+\citet{Siggi05} hafa til að mynda notað ákvarðanatré til að læra LPT fyrir 
+JSP. 
 Vankanturinn þar var sá að þá var verið að reyna að læra regluna án þess að 
 umbuna þau frávik sem hefðu leitt til betri niðurstöður. 
 Væri því rökrétt að læra frekar af væntri niðurstöðu, þ.e. afleitt $C_{\max}$ 
 fyrir gefna ákvörðun m.t.t. bestu lausnar, líkt og gert var síðar í 
 \cite{Malik08,Russell09} og \cite{Siggi10}. Þannig má finna CDR sem betrumbætir 
-LPT regluna sem hún byggist á. Slík var nálgunin hjá mér í \cite{InRu15a}, þar 
+LPT regluna sem hún byggist á. 
+Slík var nálgunin hjá mér í \cite{InRu15a}, þar 
 sem skoðuð voru 13 sérkenni JSP lausna, sem innblástur var mikið til sóttur til 
-sígildra SDR, en þar var framkvæmdur forgangslærdómur (e. preference learning) 
+sígildra SDR. Þar var framkvæmdur forgangslærdómur (e. preference learning) 
 til að finna línulegt fall sérkenna byggt á þjálfunargögnum þar sem stöður sem 
 leiddu af sér hagstæðra $C_{\max}$ voru teknar fram yfir óhagstæðari. 
 Niðurstöður leiddu í ljós að það gott að búa til módel sem byggjast á bestu 
 lausnum. Aftur á móti geta þjálfunargögnin verið einsleit og þar af leiðandi 
-ekki nægjanlega lýsandi fyrir ástandsrýmið þegar módelið verður ósamleitið 
-bestu braut. Þá er brugðið á það ráð að bæta við þjálfunargögnum sem byggjast á 
-góðum SDR til að veita meiri fjölbreytileika til að læra af, til að takast á 
+ekki nægjanlega lýsandi fyrir ástandsrýmið. 
+Þá var brugðið á það ráð að bæta við þjálfunargögnum sem byggðust á 
+góðum SDR til að veita meiri fjölbreytileika til að læra af og til að takast á 
 við að festast í staðbundnu lággildi, með góðum niðurstöðum. 
-Mögulega er breytileikinn á milli gagna of mikill með slíkri nálgun. 
+Mögulega er breytileikinn á milli gagna of mikil með slíkri nálgun. 
 Núverandi rannsóknir ganga út á eftirlíkingarlærdóm (e. imitation learning) í 
 anda \cite{RossB10} og \cite{RossGB11} þar sem búið er til módel sem lærir 
 forgang af bestu braut (sbr. \cite{InRu11a,InRu15a}), sem er síðan notað til að 
@@ -242,8 +243,8 @@ Fyrstu niðurstöður liggja fyrir og ýtir aðferðin uppá við afköst núver
 aðferðafræði. 
 
 %          Problem Dimension    Q1    Q3
-%          j.rnd.6x5   j.rnd       6x5 19.91 47.21
-%          f.rnd.6x5   f.rnd       6x5 18.46 35.52
+%          j.rnd       6x5 19.91 47.21
+%          f.rnd       6x5 18.46 35.52
 
 \bibliographystyle{unsrtnat}
 \begin{thebibliography}{11}
