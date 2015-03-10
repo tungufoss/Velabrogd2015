@@ -33,9 +33,9 @@ að verkum að oft er erfitt að leysa verkefnið með nákvæmum aðferðum.
 sem var ekki endilega hin fræðilega ,,besta'' lausn. 
 Hér koma brjóstvitsaðferðir (e. heuristics) eða ,,þumalputtareglur'' sterkar 
 inn, en þá er stóra spurningin hvernig má koma á sjálfvirkni í því ferli? 
-Til að geta gert það þá er gott að hafa skilning á því hvernig einfaldar 
+Til að geta gert það, þá er gott að hafa skilning á því hvernig einfaldar 
 reglur eru takast á við verkefnið og athuga hvort hægt sé að læra eitthvað á 
-því áður en hafist er handa með flóknari algrím. 
+þeim áður en hafist er handa með flóknari reiknirit. 
 Mun því þessi grein fjalla um gæðamæt einföldum brjóstvitsaðferðum úr fræðunum. 
 
 \section{Verkniðurröðun á vélar}
@@ -64,21 +64,23 @@ Markfallið er að tímasetja öll verk þannig að lágmarka skal hámarks heil
 
 Brjóstvitsaðferðir fyrir tímaáætlanir eru yfirleitt uppbyggingar- eða 
 umbætunaralgrím.
-Umbætunaralgrím byrja á fulbúinni lausn og reynir að finna sambærilegar, en 
+Umbætunaralgrím byrja á fullbúinni lausn og reynir að finna sambærilegar, en 
 betri lausnir. 
-Uppbyggingaralgrím byrja með tómri lausn og bæta við einu verki í einu þar til 
-lausnin er fullbúin, og er það sú nálgun sem aðferðafræðin mín gengur út frá. 
+Uppbyggingaralgrím byrja aftur á móti með tómri lausn og bæta við einu verki í 
+einu þar til lausnin er fullbúin, og er það sú nálgun sem aðferðafræðin mín 
+gengur út frá. 
 Í þessu tilfelli þá eru yfirleitt röðunarreglur (DR, e. dispatching 
-rules) sem ákvarða hvaða ókláraða verk verður valið næst. Það er ekki nóg að 
-vita hvaða verkefni ætti að vera valið næst, 
+rules) sem ákvarða hvaða ókláraða verk verður valið næst. 
+
+Það er ekki nóg að vita hvaða verkefni ætti að vera valið næst, 
 heldur þarf líka að athuga hvar væri best að staðsetja það. 
 Þar sem við viljum búa til samþjappaðar tímaáætlanir  þá setjum við verkið af 
 stað um leið og það er laust. 
 Skoðnum nú Gantt ritið á mynd \ref{fig:jssp:example} sem sýnir dæmi um 
 $6\times5$ JSP þar sem verknúmerið er gefið inn í kassa og er breidd þess 
 vinnslutími verksins, 
-vélarnar eru á lóðrétta ásinum og lárétti ásinn segir til um tíma 
-og er núverandi $C_{\max}$ gefið sem punktalína. 
+vélarnar eru á lóðrétta ásinum og lárétti ásinn segir til um tíma aðgerða,
+þar sem núverandi $C_{\max}$ gefið sem punktalína. 
 Búið er að setja af stað 15 aðgerðir, nefnilega, 
 \begin{eqnarray}
 \vchi=\left(J_3,J_3,J_3,J_3,J_4,J_4,J_5,J_1,J_1,J_2,J_4,J_6,J_4,J_5,J_3\right),
@@ -86,7 +88,8 @@ Búið er að setja af stað 15 aðgerðir, nefnilega,
 þar af leiðandi eru ókláruðu verkin eftirfarandi 
 $\mathcal{L}=\{J_1,J_2,J_4,J_5,J_6\}$, sem lýsa þeim 5 mögulegu verkum sem geta 
 verið afgreidd á tímapunkti $k=16$ (athugið að verk $J_3$ er fullklárað) -- 
-þessi verk eru gefin upp með brotalínu og sýna hvernig staðan gæti breyst. 
+þessi verk eru gefin upp með brotalínu og sýna hvernig staðan gæti breyst með 
+áætlun þeirra. 
 Við sjáum að $J_2$ getur verið staðsett á $M_3$ annaðhvort á milli  $J_3$ og 
 $J_4$, eða eftir $J_4$.  Ef $J_6$ hefði nú þegar verið afgreitt, þá myndi 
 myndast rauf á milli þess og $J_4$, þ.a.l. myndast þriðji möguleikinn, þ.e. 
@@ -113,10 +116,9 @@ byggst á eiginleikum vinnslutíma verkanna, til dæmis,
     framvindu sinni, þ.e. að lágmarka verklistann $\mathcal{L}$,
     \item[Stærsta heildarvinna (MWR, e. most work remaining)] \hfill \\
     þar sem ásetningurinn er að flýta fyrir framvindu verka sem krefjast mikinn 
-    vinnslutíma, og gefur því af sér jafnari framvidnu fyrir öll verk, aftur á 
-    móti.
+    vinnslutíma, og gefur því af sér jafnari framvindu fyrir öll verk.
 \end{description}
-Þetta eru þær algengustu röðurnarreglur í starfi vegna einfaldleika þeirra og 
+Þetta eru þær algengustu röðunarreglur í starfi vegna einfaldleika þeirra og 
 skilvirkni, en ótal fleiri reglur koma líka til greina. Yfirlit yfir 100 
 sígildar röðunarreglur má finna í \citet{Panwalkar77}, en einnig er greinargóð 
 lýsing á SDR eftir \citet{Haupt89}. 
@@ -124,22 +126,24 @@ lýsing á SDR eftir \citet{Haupt89}.
 \section{Tilraunir}
 Við skulum skoða nú tvær gagnadreifingar fyrir JSP, nefnilega með slembinni 
 uppröðun, kallað \texttt{j.rnd}, og einsleitri uppröðun, kallað \texttt{f.rnd}. 
-Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifinu á bilinu $[1,99]$.
+Vinnslutíminn í báðum tilfellum er fengin með jafnri dreifingu á bilinu 
+$[1,99]$.
 Við höfum $N_{\textbf{train}}=500$ af hvorri dreifingu, og vitum bestu lausn 
 með því að besta með hugbúnaði fyrir línuleg bestunarverkefni \citep{gurobi}. 
+
 Þar sem vinnslutíminn er mismunandi þá munum við styðjast við að lágmarka 
 frávik frá bestu lausn með eftirfarandi hætti, 
 \begin{equation}
-\rho=\frac{C_{\max}^{\text{DR}}-C_{\max}^{opt}}{C_{\max}^{\text{opt}}}\cdot 
-100\%
+\rho=\frac{C_{\max}^{\text{DR}}-C_{\max}^{\text{opt}}}{C_{\max}^{\text{opt}}}
+\cdot 100\%
 \end{equation}
 þar sem $C_{\max}^{\text{DR}}$ er fengið með DR og $C_{\max}^{\text{opt}}$ er 
 besta lausn. 
 
-Beitum nú þeim SDR sem við kynntum áðan, á gagnasettið okkar. Kassarit fyrir 
+Beitum nú þeim SDR sem við kynntum áðan, á gagnasettin okkar. Kassarit fyrir 
 $\rho$ er gefið upp í mynd \ref{fig:boxplot}. Við sjáum að það er greinilegur 
 munur á því hvaða SDR er beitt á gögnin, t.a.m. er MWR mjög hentug regla fyrir 
-\texttt{j.rnd} aftur á móti er það ekki tilvikið fyrir \texttt{f.rnd} þar sem 
+\texttt{j.rnd}, aftur á móti er það ekki tilvikið fyrir \texttt{f.rnd} þar sem 
 gagnstæð regla, LWR, kemur umtalsvert betur út. 
 
 \begin{figure}\centering
@@ -173,8 +177,9 @@ stilla tímaáætluna á þann veg að MWR nær ekki að rétta sig af.
     \label{fig:diff:opt:SDR}
 \end{figure}
 
-Aftur á móti má sjá, hvernig eru reglurnar að breytast frá öðrum verkum? 
-Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið $\rho$ er 
+Spyrjum okkur nú, hvernig eru reglurnar að breytast frá öðrum verkum sem eru 
+ekki valin? 
+Mynd \ref{diff:case:track:6x5} sýnir hvernig frávikið á $\rho$ er 
 að breytast sem fall af ákvörðunarskrefi með því að fylgja ákveðinni SDR 
 (brotalína). Einnig er skoðað hvernig væru besta og versta frávik frá þeirri 
 sömu stöðu, þ.e. ef við fylgdum ekki reglunni. 
